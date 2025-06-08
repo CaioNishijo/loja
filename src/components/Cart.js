@@ -48,11 +48,43 @@ function CartProduct({ product, onChange, isLoading }){
                 <button disabled={isLoading} onClick={() => onChange(product, -1)}>
                     -
                 </button>
-                <p>{products.units}</p>
+                <p>{product.units}</p>
                 <button disabled={isLoading} onClick={() => onChange(product, +1)}>
                     +
                 </button>
             </SDivUnits>
         </Sli>
+    )
+}
+
+const SSection = styled.section`
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    gap: 20px;
+`
+
+const SUl = styled.ul`
+    list-style-type: none;
+`
+
+export default function Cart({ products, onChange, onClick, isLoading = false }){
+    return (
+        <SSection>
+            <SUl>
+                {products.map((product) => (
+                    <CartProduct
+                        key={product.id}
+                        product={product}
+                        onChange={onChange}
+                        isLoading={isLoading}
+                    />
+                ))}
+            </SUl>
+            <Button onClick={onClick} isLoading={isLoading}>
+                Finalizar compra
+            </Button>
+        </SSection>
     )
 }
